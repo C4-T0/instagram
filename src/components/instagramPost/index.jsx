@@ -22,7 +22,7 @@ const Post = (props) => {
   return (
     <Card onClick={handleClick} className="card">
       <CardActionArea>
-        <img className="image" src={display_url} />
+        <img className="image" alt="" src={display_url} />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
             {text}

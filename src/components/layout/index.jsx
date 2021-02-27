@@ -7,18 +7,26 @@ const Layout = () => {
   const hashtag = "blue";
   const [posts, setPosts] = useState([]);
   const api = `https://www.instagram.com/explore/tags/${hashtag}/?__a=1`;
-  axios.get(api).then((response) => {
+  fetch(`https://www.instagram.com/explore/tags/${hashtag}/?__a=1`, { method: 'GET' }).then((response) => {
+    console.log("fetch")
     console.log(response);
-    if (response.data.graphql == undefined) {
-      //???
-    } else {
-      console.log(response.data.graphql.hashtag.edge_hashtag_to_media.edges);
-      setPosts(response.data.graphql.hashtag.edge_hashtag_to_media.edges);
-    }
-  }).catch(error => {
-    console.log("Error:")
-    console.log(error)
-});
+  });
+  axios
+    .get(api)
+    .then((response) => {
+      console.log(response);
+      if (response.data.graphql === undefined) {
+        //???
+      } else {
+        console.log(response.data.graphql.hashtag.edge_hashtag_to_media.edges);
+        setPosts(response.data.graphql.hashtag.edge_hashtag_to_media.edges);
+      }
+    })
+    .catch((error) => {
+      console.log("Error start:");
+      console.log(error);
+      console.log("Error end.");
+    });
   const renderPosts = (listPosts) => {
     return listPosts.map((x) => (
       <div>
